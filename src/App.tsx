@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useEthereum, useConnect, useAuthCore } from '@particle-network/auth-core-modal';
-import { MantleTestnet } from '@particle-network/chains';
+import { MantleSepoliaTestnet } from '@particle-network/chains';
 import { AAWrapProvider, SendTransactionMode, SmartAccount } from '@particle-network/aa';
 import { ethers } from 'ethers';
 import { notification } from 'antd';
@@ -17,7 +17,9 @@ const App = () => {
     clientKey: process.env.REACT_APP_CLIENT_KEY,
     appId: process.env.REACT_APP_APP_ID,
     aaOptions: {
-      simple: [{ chainId: MantleTestnet.id, version: '1.0.0' }]
+      accountContracts: {
+        SIMPLE: [{ chainIds: [MantleSepoliaTestnet.id], version: '1.0.0' }]
+      }
     }
   });
 
@@ -40,7 +42,7 @@ const App = () => {
     if (!userInfo) {
       await connect({
         socialType: authType,
-        chain: MantleTestnet,
+        chain: MantleSepoliaTestnet,
       });
     }
   };
